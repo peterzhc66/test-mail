@@ -26,7 +26,7 @@ pipeline {
                     steps {
                         script {
                             try {
-                                sh (exit 0)
+                                sh "exit 0"
                             } catch (e) {
                                 echo('detected failure: Failure stage')
                                 throw(e)
