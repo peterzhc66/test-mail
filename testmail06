@@ -45,9 +45,10 @@ pipeline {
         stage('Final steps') {
             steps {
                 script {
-                    if (stage1of2.result == "FAILURE") or (stage2of2.result == "FAILURE")
-                        {echo('detected failure: either stage failed') }
-                    else
+                    echo "Success"
+                    //if (stage1of2.result == "FAILURE") or (stage2of2.result == "FAILURE")
+                    //    {echo('detected failure: either stage failed') }
+                    //else
                         {echo('detected Success')}
                            }
 				   }
