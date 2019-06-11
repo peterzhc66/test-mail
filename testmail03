@@ -37,7 +37,9 @@ pipeline {
             echo 'Hi Success !!!!'
             emailext body: '${DEFAULT_CONTENT}',
                 recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']],
-                subject: '${DEFAULT_SUBJECT}'
+                subject: '${DEFAULT_SUBJECT}',
+                mimeType: 'text/html',
+                from: "peter_jenkins@hotmail.com" 
         }
     }
 }
