@@ -17,6 +17,7 @@ pipeline {
                         subject: '${DEFAULT_SUBJECT}'
                         throw(e)
                     }
+                    echo stage1of2.result
                 }
             }
         }
