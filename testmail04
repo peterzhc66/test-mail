@@ -1,0 +1,40 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Parallel steps') {
+            parallel {
+                stage('parallel stage 1 of 2 ') {
+                    steps {
+                        script {
+                            try {
+                                sleepp 10 
+                            } catch (e) {
+                                echo('detected failure: stage 1 of 2 failed')
+                                echo 'Hi something failed !'
+                                emailext body: '${DEFAULT_CONTENT}',
+                                recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']],
+                                subject: '${DEFAULT_SUBJECT}'
+                    
+
+                                throw(e)
+                            }
+                        }
+                    }
+                }
+                stage('Failure stage') {
+                    steps {
+                        script {
+                            try {
+                                sh (exit 0)
+                            } catch (e) {
+                                echo('detected failure: Failure stage')
+                                throw(e)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
