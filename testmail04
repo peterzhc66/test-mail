@@ -8,8 +8,7 @@ pipeline {
                     steps {
                         script {
                             try {
-                                sh "cd /opt/ansible"
-                                sh "set -e; ansible-playbook  -i ./list  ping-setup.yml " 
+                                sh "cd /opt/ansible; set -e; ansible-playbook  -i ./list  ping-setup.yml " 
                             } catch (e) {
                                 echo('detected failure: stage 1 of 2 failed')
                                 echo 'Hi something failed !'
