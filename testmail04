@@ -9,6 +9,7 @@ pipeline {
                         script {
                             try {
                                 sh "cd /opt/ansible; set -e; ansible-playbook  -i ./list  ping-setup.yml " 
+				echo('\u2600 detected failure: stage 1 of 2 completed ')
                             } catch (e) {
                                 echo('\u2600 detected failure: stage 1 of 2 failed')
                                 echo 'Hi something failed !'
@@ -22,12 +23,13 @@ pipeline {
                         }
                     }
                 }
-                stage('parallel stage 2 of 2') {
+                stage('\u2777 parallel stage 2 of 2') {
                     steps {
                         script {
                             try {
                                 //sh "cd /opt/ansible; set -e; ansible-playbook  -i ./list  ping-setup.yml " 
                                 sh "cd /opt/ansible"
+				echo('\u2600 detected failure: stage 2 of 2 completed ')
                             } catch (e) {
                                 echo('detected failure: Failure stage')
                                 throw(e)
