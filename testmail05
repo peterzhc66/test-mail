@@ -1,56 +1,10 @@
-pipeline {
-    agent any
-
-    stages {
-        stage('Parallel steps') {
-            parallel {
-                stage('parallel stage 1 of 2 ') {
-                    steps {
-                        script {
-                            try {
-                                sh "cd /opt/ansible; set -e; ansible-playbook  -i ./list  ping-setup.yml "
-								stage1of2.result = "SUCCESS"
-                            } catch (e) {
-								stage1of2.result = "FAILURE"
-								echo('detected failure: stage 1 of 2 failed')
-                                echo 'Hi something failed !'
-                                emailext body: '${DEFAULT_CONTENT}',
-                                recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']],
-                                subject: '${DEFAULT_SUBJECT}'
-
-
-                                throw(e)
-                            }
-                        }
-                    }
-                }
-                stage('parallel stage 2 of 2') {
-                    steps {
-                        script {
-                            try {
-                                //sh "cd /opt/ansible; set -e; ansible-playbook  -i ./list  ping-setup.yml "
-                                sh "cd /opt/ansible"
-								stage2of2.result = "SUCCESS"
-                            } catch (e) {
-                                echo('detected failure: stage 2 of 2 failed')
-								stage2of2.result = "FAILURE"
-								throw(e)
-                            }
-                        }
-                    }
-                }
-            }
-        }
-		stage('Final steps') {
-		   steps {
-			   script {
-				if (stage1of2.result = "FAILURE") and (stage2of2.result = "FAILURE"){
-				echo('detected failure: two stage failed')
-			      }
-			   }
+node {
+    try {
+        // do something that fails
+        sh "exit 1"
+        currentBuild.result = 'SUCCESS'
+    } catch (Exception err) {
+        currentBuild.result = 'FAILURE'
     }
-  }
+    echo "RESULT: ${currentBuild.result}"
 }
-}
-
-
