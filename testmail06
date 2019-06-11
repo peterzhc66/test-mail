@@ -10,6 +10,7 @@ pipeline {
                         //stage1of2.result = "SUCCESS"
                     } catch (e) {
                         stage1of2 = "ok"
+                        x.state="ok"
                         echo 'detected failure: stage 1 of 2 failed'
                         echo 'Hi something failed !'
                         emailext body: '${DEFAULT_CONTENT}',
