@@ -17,7 +17,7 @@ pipeline {
                         subject: '${DEFAULT_SUBJECT}'
                         //throw(e)
                     }
-                    echo currentBuild.result
+                    echo stage1of2.result
                 }
             }
         }
