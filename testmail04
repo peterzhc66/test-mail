@@ -8,7 +8,7 @@ pipeline {
                     steps {
                         script {
                             try {
-                                sleepp 10 
+                                sleep 10 
                             } catch (e) {
                                 echo('detected failure: stage 1 of 2 failed')
                                 echo 'Hi something failed !'
