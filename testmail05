@@ -43,7 +43,7 @@ pipeline {
         }
 		stage('Final steps') {
 		   steps {
-			   if (stage1of2.result = "FAILURE") and (stage2of2.result = "FAILURE"){
+			   if (stage1of2.result = "FAILURE") && (stage2of2.result = "FAILURE"){
 				echo('detected failure: two stage failed')
 			}
     }
