@@ -9,7 +9,7 @@ pipeline {
                         sh "cd /opt/ansible; set -e; ansible-playbook  -i ./list  ping-setup.yml "
                         //stage1of2.result = "SUCCESS"
                     } catch (e) {
-                        stage1of2.result = "FAILURE"
+                        stage1of2.result = "ok"
                         echo 'detected failure: stage 1 of 2 failed'
                         echo 'Hi something failed !'
                         emailext body: '${DEFAULT_CONTENT}',
